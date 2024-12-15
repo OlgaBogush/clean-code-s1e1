@@ -88,7 +88,7 @@
   display: block;
   margin: 0 0 20px;
 }
-.task-input#new-task {
+#new-task {
   width: 318px;
 }
 
