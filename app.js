@@ -18,7 +18,7 @@ var completedTasksHolder=document.getElementById("completed-tasks");//completed-
 var createNewTaskElement=function(taskString){
 
     var listItem=document.createElement("li");
-    listItem.classList.add("tasks-item");
+    listItem.classList.add("incompleted__item");
 
     //input (checkbox)
     var checkBox=document.createElement("input");//checkbx
@@ -34,21 +34,21 @@ var createNewTaskElement=function(taskString){
     var deleteButtonImg=document.createElement("img");//delete button image
 
     label.innerText=taskString;
-    label.className="task task-label";
+    label.className="task add__label";
 
     //Each elements, needs appending
     checkBox.type="checkbox";
-    checkBox.className = "task-input"
+    checkBox.className = "add__input"
     editInput.type="text";
-    editInput.className="task task-input";
+    editInput.className="task add__input";
 
     editButton.innerText="Edit"; //innerText encodes special characters, HTML does not.
-    editButton.className="edit task-button";
+    editButton.className="edit add__button";
 
-    deleteButton.className="delete task-button";
+    deleteButton.className="delete add__button";
     deleteButtonImg.src='./remove.svg';
     deleteButtonImg.alt = "remove";
-    deleteButtonImg.className = "image-delete";
+    deleteButtonImg.className = "delete__image";
     deleteButton.appendChild(deleteButtonImg);
 
 
@@ -89,7 +89,7 @@ var editTask=function(){
     var editInput=listItem.querySelector('input[type=text]');
     var label=listItem.querySelector("label");
     var editBtn=listItem.querySelector(".edit");
-    var containsClass=listItem.classList.contains("edit-mode");
+    var containsClass=listItem.classList.contains("incompleted__item_edit");
     //If class of the parent is .edit-mode
     if(containsClass){
 
@@ -103,7 +103,7 @@ var editTask=function(){
     }
 
     //toggle .edit-mode on the parent.
-    listItem.classList.toggle("edit-mode");
+    listItem.classList.toggle("incompleted__item_edit");
 };
 
 
@@ -120,15 +120,15 @@ var deleteTask=function(){
 
 
 //Mark task completed
-var taskCompleted=function(){
-    console.log("Complete Task...");
+var taskCompleted = function () {
+  console.log("Complete Task...");
 
-    //Append the task list item to the #completed-tasks
-    var listItem=this.parentNode;
-    completedTasksHolder.appendChild(listItem);
-    bindTaskEvents(listItem, taskIncomplete);
-
-}
+  //Append the task list item to the #completed-tasks
+  var listItem = this.parentNode;
+  completedTasksHolder.appendChild(listItem);
+  bindTaskEvents(listItem, taskIncomplete);
+  listItem.className = "incompleted__item incompleted__item_completed";
+};
 
 
 var taskIncomplete=function(){
@@ -139,6 +139,12 @@ var taskIncomplete=function(){
     var listItem=this.parentNode;
     incompleteTaskHolder.appendChild(listItem);
     bindTaskEvents(listItem,taskCompleted);
+    const editBtn = listItem.querySelector(".edit");
+    if (editBtn.innerText === "Save") {
+        listItem.className = "incompleted__item incompleted__item_edit";
+    } else {
+        listItem.className = "incompleted__item";
+    }
 }
 
 
