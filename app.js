@@ -127,7 +127,13 @@ var taskCompleted = function () {
   var listItem = this.parentNode;
   completedTasksHolder.appendChild(listItem);
   bindTaskEvents(listItem, taskIncomplete);
-  listItem.className = "incompleted__item incompleted__item_completed";
+  const editBtn = listItem.querySelector(".edit");
+    if (editBtn.innerText === "Save") {
+        listItem.className = "incompleted__item incompleted__item_edit";
+    } else {
+        listItem.className = "incompleted__item incompleted__item_completed";
+        // listItem.className = "incompleted__item";
+    }
 };
 
 
