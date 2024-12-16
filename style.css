@@ -133,7 +133,7 @@
 }
 
 /* Completed */
-.incompleted__item_completed {
+.completed__list .add__label {
   text-decoration: line-through;
   color: #888;
 }
